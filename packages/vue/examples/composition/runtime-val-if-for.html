@@ -1,0 +1,25 @@
+<script src="../../dist/vue.global.js"></script>
+ 
+
+
+<div id="demo">
+  <span v-if="val" v-for="item in itemList"   :key="item" >{{item}}</span>
+</div>
+
+<script>
+  debugger
+const app = Vue.createApp({ 
+  setup() {
+   const itemList = Vue.ref([1,2,3,4]) 
+   const val = Vue.ref(false)
+    return {
+      itemList,
+      val
+    }
+  }
+}) 
+app.mount('#demo') 
+</script>
+
+<style> 
+</style>

@@ -1,0 +1,21 @@
+<script src="../../dist/vue.global.js"></script>  
+
+<div id="demo"> 
+  --{{val}}-- 
+</div>
+
+<script>
+  debugger
+const app = Vue.createApp({ 
+  setup() {
+   const val = Vue.ref("oooo")
+    return {
+      val, 
+    }
+  } 
+}) 
+app.mount('#demo') 
+</script>
+
+<style> 
+</style>

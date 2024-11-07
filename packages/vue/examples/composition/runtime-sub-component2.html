@@ -1,0 +1,51 @@
+<script src="../../dist/vue.global.js"></script>
+
+<script type="text/x-template" id="app-template">
+  <p>子组件：{{message}} - {{state.a}}</p>
+  {{props}}
+</script> 
+<script>
+const { reactive, computed,ref,h } = Vue
+
+const App = {
+  template: '#app-template',
+  props: {
+    message: String, 
+  },
+  setup(props) {
+    const state = reactive({
+      a:"ggg"
+    })
+    return {
+      state, 
+    } 
+  }
+}
+</script>
+
+
+<div id="demo">
+  <app :message="val" >
+  </app>
+</div>
+
+<script> 
+const app = Vue.createApp({
+  components: {
+    App
+  },
+  setup() {
+   const val = ref("oooo")
+   setTimeout(() => {
+    val.value = "ssss"
+   }, 3000);
+    return {
+      val, 
+    }
+  }
+}) 
+app.mount('#demo') 
+</script>
+
+<style> 
+</style>
