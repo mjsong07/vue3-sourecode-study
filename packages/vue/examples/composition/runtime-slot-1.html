@@ -1,0 +1,95 @@
+<script src="../../dist/vue.global.js"></script>
+
+
+<script type="text/x-template" id="d1"> 
+    <h1>D组件</h1>
+    <div>
+      <slot name="mysolt" msg="我是D组件msg"> </slot>
+    </div> 
+</script> 
+<script>
+const D = {
+  template: '#d1', 
+}
+</script>
+
+<script type="text/x-template" id="c1"> 
+    <h1>C组件</h1>
+    <D> 
+      <template #mysolt="{msg}">
+           <slot name="mysolt" :msg="msg">
+            </slot>
+     </template >
+    </D> 
+</script> 
+<script>
+const C = {
+  template: '#c1',
+  components: {
+    D
+  }
+}
+</script>
+
+
+<script type="text/x-template" id="b1"> 
+    <h1>B组件</h1>
+    <C> 
+      <template #mysolt="{msg}">
+           <slot name="mysolt" :msg="msg">
+            </slot>
+     </template >
+    </C> 
+</script> 
+<script>
+const B1 = {
+  template: '#b1',
+  components: {
+    C
+  }
+}
+</script>
+
+
+
+
+<script type="text/x-template" id="a1"> 
+    <h1>A组件</h1>
+    <B1>
+     <template #mysolt="{msg}">
+    {{msg}}
+     </template >
+  </B1> 
+</script> 
+<script>
+const { reactive, computed,ref,h } = Vue 
+const A1 = {
+  template: '#a1',
+  components: {
+    B1
+  }, 
+  setup(props) { 
+  }
+}
+</script>
+
+
+<div id="demo">
+  <A1>
+  </A1>
+</div>
+
+<script>
+  debugger
+const app = Vue.createApp({
+  components: {
+    A1
+  },
+  setup() { 
+  }
+}) 
+app.mount('#demo') 
+</script>
+
+<style> 
+</style>

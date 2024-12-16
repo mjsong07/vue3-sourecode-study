@@ -1,0 +1,62 @@
+<script src="../../dist/vue.global.js"></script>
+
+<div id="demo">
+  <A1>
+  </A1>
+</div>
+ 
+<script>
+  const { defineComponent,h ,createVNode} = Vue
+
+// 定义 D 组件
+const D = defineComponent({
+  template: `
+    <h1>D组件</h1>
+    <div>
+      <slot name="mysolt" msg="我是D组件msg"></slot>
+    </div>
+  `
+});
+
+// 定义 C 组件
+const C = defineComponent({
+  components: { D },
+  setup(props, ctx) { //ctx.slots 包含了当前组件A的插槽信息
+     //等价于    ctx.slots = { 'myslot' : (msg:string) => {return createVNode('p',null,msg) }} 
+    return () =>  createVNode(D, props,ctx.slots)
+  }, 
+});
+
+// 定义 B1 组件
+const B1 = defineComponent({
+  components: { C },
+  setup(props, ctx) { //ctx.slots 包含了当前组件A的插槽信息
+     //等价于    ctx.slots = { 'myslot' : (msg:string) => {return createVNode('p',null,msg) }} 
+    return () =>  createVNode(C, props,ctx.slots)
+  }, 
+});
+
+// 定义 A1 组件
+const A1 = defineComponent({
+  components: { B1 },
+  template: `
+    <h1>A组件</h1>
+    <B1>
+      <template #mysolt="{ msg }">
+        {{ msg }}
+      </template>
+    </B1>
+  `
+});
+
+debugger
+// 创建 Vue 应用并挂载 
+const { createApp } = Vue
+const app = createApp({
+  components: { A1 }
+});
+
+app.mount('#demo');
+
+</script>
+ 
